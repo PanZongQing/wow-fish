@@ -52,6 +52,34 @@ class AutoFish:
         pyautogui.keyUp("F8") 
         self.start_fishing_timestamp = time.time()      
     
+
+    #获取鱼漂坐标
+    def Window_check():
+        # 获取进程内指定标题窗口
+        window = gw.getActiveWindowTitle('魔兽世界')
+        print(window)
+        windows = window[0]
+        # 获取窗口左上角的坐标和窗口的大小
+        x,y,width,height = windows.topleft[0],windows.topleft[1],windows.size[0],windows.size[1]
+
+
+
+
+        # 获取屏幕图像
+        screenshot = pyautogui.screenshot(region=(x,y,width,height))
+        screenshot.save('.\wow_fishingtools\images\screenshot.png')
+        screenshot = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR)
+
+        # 加载指定图像
+        template = cv2.imread('.\wow_fishingtools\images\google.png', 0)
+        w, h = template.shape[::-1]
+
+        # 匹配图像并获取坐标
+        time.sleep(1)
+        res = cv2.matchTemplate(screenshot, template, cv2.TM_CCOEFF_NORMED)
+        threshold = 0.8
+        loc = np.where(res >= threshold)
+
     #寻找鱼漂
     def find_float(self):
         while True:
