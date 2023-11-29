@@ -48,8 +48,8 @@ class AutoFish:
     #开始钓鱼,默认钓鱼的快捷键为F
     def start_fish(self):
         print("甩杆!")
-        pyautogui.keyDown("F")
-        pyautogui.keyUp("F") 
+        pyautogui.keyDown("F8")
+        pyautogui.keyUp("F8") 
         self.start_fishing_timestamp = time.time()      
     
     #寻找鱼漂
